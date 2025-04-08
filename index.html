@@ -3,68 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Iframe Viewer</title>
+    <title>Points Tally</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
             margin: 20px;
         }
-        #urlInput {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
+        .item {
+            margin-bottom: 10px;
         }
-        #loadButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        #iframeContainer {
+        .tally {
             margin-top: 20px;
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ccc;
-            display: none; /* Hide initially */
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-    <h1>Wifi Filter Bypass Console</h1>
-    <input type="text" id="urlInput" placeholder="Enter a URL (e.g., example.com)">
-    <button id="loadButton">Load URL</button>
+<h1>Points Tracker</h1>
 
-    <div id="iframeContainer">
-        <iframe id="urlIframe" src=""></iframe>
-    </div>
+<div class="item">
+    <label for="item1">Item 1 (2 points each):</label>
+    <input type="number" id="item1" value="0" min="0" oninput="calculateTotal()">
+</div>
 
-    <script>
-        document.getElementById('loadButton').addEventListener('click', function() {
-            const urlInput = document.getElementById('urlInput').value.trim();
-            const iframe = document.getElementById('urlIframe');
-            const iframeContainer = document.getElementById('iframeContainer');
+<div class="item">
+    <label for="item2">Item 2 (3 points each):</label>
+    <input type="number" id="item2" value="0" min="0" oninput="calculateTotal()">
+</div>
 
-            // Validate the URL and add protocol if missing
-            if (urlInput) {
-                let url = urlInput;
-                if (!/^https?:\/\//i.test(url)) {
-                    url = 'https://' + url; // Default to HTTPS
-                }
+<div class="item">
+    <label for="item3">Item 3 (5 points each):</label>
+    <input type="number" id="item3" value="0" min="0" oninput="calculateTotal()">
+</div>
 
-                // Set the iframe source to the input URL
-                iframe.src = url;
-                iframeContainer.style.display = 'block'; // Show the iframe container
-            } else {
-                alert('Please enter a valid URL.');
-            }
-        });
-    </script>
+<div class="item">
+    <label for="item4">Item 4 (1 point each):</label>
+    <input type="number" id="item4" value="0" min="0" oninput="calculateTotal()">
+</div>
+
+<div class="tally" id="totalPoints">Total Points: 0</div>
+
+<script>
+    function calculateTotal() {
+        // Define the points for each item
+        const points = {
+            item1: 2,
+            item2: 3,
+            item3: 5,
+            item4: 1
+        };
+
+        // Calculate total points
+        let total = 0;
+        for (const item in points) {
+            const quantity = document.getElementById(item).value;
+            total += quantity * points[item];
+        }
+
+        // Update the total points display
+        document.getElementById('totalPoints').innerText = 'Total Points: ' + total;
+    }
+</script>
 
 </body>
 </html>
